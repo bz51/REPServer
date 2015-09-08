@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/><!-- 允许DMI -->
+    <constant name="struts.custom.i18n.resources" value="messageResource"/><!-- 指定国际化资源文件的baseName为messageResource -->
+    <constant name="struts.i18n.encoding" value="utf-8"/><!-- 设置该应用使用的解码集 -->
+
+	<!-- 教师端包 -->
+    <package name="tea" namespace="/tea" extends="json-default">
+    
+    	<!-- 登陆注册 -->
+    	<action name="loginAction" class="com.rep.tea.action.LoginAction">
+    	
+    		<result name="isLogin" type="json">
+    			<param name="includeProperties">reason,result</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="signin" type="json">
+    			<param name="includeProperties">result,reason,tea_id,tea_name,type</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="login" type="json">
+    			<param name="includeProperties">result,reason,tea_id,tea_name,type</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="getAuthCode" type="json">
+    			<param name="includeProperties">result,reason,access_token</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="getPass" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="verfiyCode" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="modifyPass" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 获取验证码图片 -->
+    		<result name="getCheckCodeImage" type="stream">
+    			<param name="inputName">imageStream</param>
+    			<param name="contentType">image/jpeg</param> 
+    		</result>
+    	
+    		<!-- 获取所有未发送的验证码(Android客户端使用) -->
+    		<result name="getAllUnSendAuthCode" type="json">
+    			<param name="includeProperties">result,reason,list.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 将某一条验证码设为已发送(Android客户端使用) -->
+    		<result name="setHasSend" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    		
+    	</action>
+    
+    	<!-- 账户管理 -->
+    	<action name="accountAction" class="com.rep.tea.action.AccountAction">
+    	
+    		<!-- 获取未激活的教师列表 -->
+    		<result name="getInactiveTeas" type="json">
+    			<param name="includeProperties">reason,result,teaList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 获取未激活的学生列表 -->
+    		<result name="getInactiveStus" type="json">
+    			<param name="includeProperties">result,reason,stuList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 认证教师 -->
+    		<result name="authorTea" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 认证学生 -->
+    		<result name="authorStu" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 批量认证全部教师 -->
+    		<result name="authorTeaAll" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 批量认证全部学生 -->
+    		<result name="authorStuAll" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 认证一些教师 -->
+    		<result name="authorSomeTea" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 认证一些学生 -->
+    		<result name="authorSomeStu" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 搜索教师信息 -->
+    		<result name="searchTea" type="json">
+    			<param name="includeProperties">result,reason,teaList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 搜索学生信息 -->
+    		<result name="searchStu" type="json">
+    			<param name="includeProperties">result,reason,stuList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 修改教师信息 -->
+    		<result name="updateTea" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 修改学生信息 -->
+    		<result name="updateStu" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    	</action>
+    
+    	<!-- 日志管理 -->
+    	<action name="logAction" class="com.rep.tea.action.LogAction">
+    	
+    		<!-- 获取教师登陆日志 -->
+    		<result name="getTeaLoginLog" type="json">
+    			<param name="includeProperties">reason,result,teaLoginLogList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 获取教师操作日志 -->
+    		<result name="getTeaDoLog" type="json">
+    			<param name="includeProperties">reason,result,teaDoLogList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 添加教师操作日志 -->
+    		<result name="addTeaDoLog" type="json">
+    			<param name="includeProperties">reason,result</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    	</action>
+    
+    	<!-- 实验模块 -->
+    	<action name="expAction" class="com.rep.tea.action.TeaExpAction">
+    	
+    		<!-- 获取教师登陆日志 -->
+    		<result name="getExpTea" type="json">
+    			<param name="includeProperties">reason,result,teaExpList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 按关键字搜索实验 -->
+    		<result name="serchExpTea" type="json">
+    			<param name="includeProperties">reason,result,teaExpList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 按学生姓名关键字搜索学生实验信息 -->
+    		<result name="serchExpStu" type="json">
+    			<param name="includeProperties">reason,result,stuExpList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 创建实验 -->
+    		<result name="createExpTea" type="json">
+    			<param name="includeProperties">reason,result</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 获取实验箱的状态 -->
+    		<result name="getState" type="json">
+    			<param name="includeProperties">reason,result,stateList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 获取实时监控信息 -->
+    		<result name="getCurInfo" type="json">
+    			<param name="includeProperties">reason,result,content</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 获取实验箱状态信息 -->
+    		<result name="getBoxStateInfo" type="json">
+    			<param name="includeProperties">reason,result,content</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 查看某一个实验的学生完成情况 -->
+    		<result name="getExpTeaByExpId" type="json">
+    			<param name="includeProperties">reason,result,stuExpList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 根据实验箱的IP获取实验箱的实时命令 -->
+    		<result name="getCmdByIP" type="json">
+    			<param name="includeProperties">reason,result,content</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 设置串口通信的参数 -->
+    		<result name="setConfig" type="json">
+    			<param name="includeProperties">reason,result</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 获取某个实验已完成的人数、未完成的人数 -->
+    		<result name="getExpState" type="json">
+    			<param name="includeProperties">reason,result,finish,unfinish</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 获取实验箱的使用频率 -->
+    		<result name="getBoxUseCount" type="json">
+    			<param name="includeProperties">reason,result,countList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 开始N个实验 -->
+    		<result name="startNExp" type="json">
+    			<param name="includeProperties">reason,result</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 结束N个实验 -->
+    		<result name="endNExp" type="json">
+    			<param name="includeProperties">reason,result</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    	</action>
+    	
+    	<!-- 数据备份模块 -->
+    	<action name="backupAction" class="com.rep.tea.action.BackupAction">
+    	
+    		<!-- 立即备份 -->
+    		<result name="backUpNow" type="json">
+    			<param name="includeProperties">reason,result</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<!-- 获取上次备份时间 -->
+    		<result name="getLastBackupTime" type="json">
+    			<param name="includeProperties">reason,result,time</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    	</action>
+    	
+    	<!-- 上传实验报告 -->
+    	<action name="uploadAction" class="com.rep.tea.action.UploadAction">
+    	
+    		<!-- 立即备份 -->
+    		<result name="upload" type="json">
+    			<param name="includeProperties">reason,result</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    	
+    	</action>
+    </package>
+    
+    
+	<!-- 学生端包 -->
+    <package name="stu" namespace="/stu" extends="json-default">
+    	
+    	<!-- 登陆注册 -->
+    	<action name="loginAction" class="com.rep.stu.action.LoginAction">
+    	
+    		<result name="isLogin" type="json">
+    			<param name="includeProperties">reason,result</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="signin" type="json">
+    			<param name="includeProperties">result,reason,stu_id,stu_name</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="login" type="json">
+    			<param name="includeProperties">result,reason,stu_id,stu_name</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="verfiyCode" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="modifyPass" type="json">
+    			<param name="includeProperties">result,reason</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	</action>
+    	
+    	<!-- 实验模块 -->
+    	<action name="expAction" class="com.rep.stu.action.StuExpAction">
+    	
+    		<result name="startExp" type="json">
+    			<param name="includeProperties">reason,result,sshUser,sshPass,ip</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="endExp" type="json">
+    			<param name="includeProperties">reason,result</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    	
+    		<result name="getMyExp" type="json">
+    			<param name="includeProperties">reason,result,stuExpList.*</param>
+    			<param name="contentType">text/html</param> 
+    		</result>
+    		
+    	</action>
+    	
+    	
+    </package>
+
+
+    
+<!-- 
+json：可以将Action中的一个属性或多个属性以json格式响应输出 使用格式如下： 
+         如果需要返回一个属性值 
+         <result type="json"> 
+              <param name="root">Action属性</param> 
+         </result> 
+         如果需要返回多个属性值 
+         <result type="json"> 
+              <param name="includeProperties"> 
+					Action属性1,Action属性2 
+              </param> 
+         </result> 
+         如果需要返回所有属性值 
+         <result type="json"></result> 
+-->
+    
+
+</struts>
